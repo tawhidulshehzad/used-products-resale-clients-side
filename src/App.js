@@ -1,7 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
-import { router } from "./firebase/Routes/Routes/Routes";
+import { router } from "./Routes/Routes/Routes";
+
 
 function App() {
   return (

@@ -11,12 +11,12 @@ const Category = () => {
   }, []);
 
   return (
-    <div>
-      <h2 className="text-center font-semibold text-3xl my-4 border bottom-3 border-sky-300 rounded-lg py-2 uppercase">
+    <div className="py-14">
+      <h2 className="text-center font-semibold text-3xl my-4 border bottom-3 border-sky-300 rounded-lg py-5 uppercase">
         Books Category
       </h2>
 
-      <div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-6">
+      <div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-6">
         {categories.map((category) => (
           <CategoryCard id={category.id} category={category}></CategoryCard>
         ))}
