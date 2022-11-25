@@ -7,7 +7,7 @@ const Additional = () => {
         Monthly Books Data Update{" "}
       </h2>
       <div className="flex flex-row justify-center ">
-        <div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-6 shadow my-5 shadow-xl">
+        <div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 rounded-lg my-6 shadow my-5 shadow-xl">
           <div className="stat place-items-center">
             <div className="stat-title">Revenue</div>
             <div className="stat-value">31K</div>
