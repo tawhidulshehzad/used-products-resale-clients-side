@@ -14,10 +14,10 @@ const menuItems = (
     </li>
 
     <li tabIndex={0}>
-      <Link className="justify-between">
+      <div className="justify-between ">
         Account Type
         <svg
-          className="fill-current"
+          className="fill-current "
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -25,8 +25,8 @@ const menuItems = (
         >
           <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
         </svg>
-      </Link>
-      <ul className="p-2">
+      </div>
+      <ul className="p-2 bg-white">
         <li>
           <Link>Seller</Link>
         </li>
@@ -36,7 +36,7 @@ const menuItems = (
       </ul>
     </li>
     <li>
-      <Link>Login With Google</Link>
+      <Link className="btn btn-outline ">Login With Google</Link>
     </li>
   </>
 );
