@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const BookingModal = ({ book, setBook }) => {
   const { name, resale_price } = book;
@@ -10,7 +11,7 @@ const BookingModal = ({ book, setBook }) => {
     const email = form.email.value;
     const phone = form.phone.value;
     const location = form.location.value;
-
+    toast("Booking done");
     const booking = {
       bookName: name,
       UserName: name,
@@ -20,6 +21,7 @@ const BookingModal = ({ book, setBook }) => {
 
     console.log(name, email, phone, location);
     setBook(null);
+    
   };
 
   return (
