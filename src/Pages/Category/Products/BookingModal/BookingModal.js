@@ -2,12 +2,16 @@ import React from "react";
 
 const BookingModal = ({ book }) => {
   const { name, resale_price } = book;
+  const productName = name;
 
   const handleBooking = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
+    const phone = form.phone.value;
+    const location = form.location.value;
+    console.log(name, email, phone, location);
   };
 
   return (
@@ -53,6 +57,7 @@ const BookingModal = ({ book }) => {
               className="input-bordered input w-full"
             />
             <input
+              name="location"
               type="text"
               placeholder="Type Location"
               className="input-bordered input w-full"
