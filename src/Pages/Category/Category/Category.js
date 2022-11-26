@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard/CategoryCard";
+import axios from "axios";
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/books-categories")
-      .then((res) => res.json())
-      .then((data) => setCategories(data));
+  React.useEffect(() => {
+    axios.get("http://localhost:5000/books-categories").then((response) => {
+      setCategories(response.data);
+    });
   }, []);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/books-categories")
+  //     .then((res) => res.json())
+  //     .then((data) => setCategories(data));
+  // }, []);
 
   return (
     <div className="py-14">

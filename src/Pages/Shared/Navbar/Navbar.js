@@ -1,47 +1,66 @@
-import React from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
-const menuItems = (
-  <>
-    <li>
-      <Link to="/">Home</Link>
-    </li>
-    <li>
-      <Link>Dashboard</Link>
-    </li>
-    <li>
-      <Link to="/login">Login</Link>
-    </li>
-
-    <li tabIndex={0}>
-      <div className="justify-between ">
-        Account Type
-        <svg
-          className="fill-current "
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-        </svg>
-      </div>
-      <ul className="p-2  bg-white">
-        <li>
-          <Link>Seller</Link>
-        </li>
-        <li>
-          <Link>Buyer</Link>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <Link className="btn btn-outline ">Login With Google</Link>
-    </li>
-  </>
-);
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const { providerLogin } = useContext(AuthContext);
+
+  const googleProvider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = () => {
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const menuItems = (
+    <>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link>Dashboard</Link>
+      </li>
+      <li>
+        <Link to="/login">Login</Link>
+      </li>
+
+      <li tabIndex={0}>
+        <div className="justify-between ">
+          Account Type
+          <svg
+            className="fill-current "
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+          </svg>
+        </div>
+        <ul className="p-2  bg-white">
+          <li>
+            <Link>Seller</Link>
+          </li>
+          <li>
+            <Link>Buyer</Link>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <button
+          onClick={handleGoogleSignIn}
+          className="btn btn-outline rounded-lg"
+        >
+          Login With Google
+        </button>
+      </li>
+    </>
+  );
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
