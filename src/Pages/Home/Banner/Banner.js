@@ -11,7 +11,7 @@ const Banner = () => {
             The person, be it gentleman or lady, who has not pleasure in a good
             novel, must be intolerably stupid
           </p>
-          <button className="btn">Get started</button>
+          <button className="btn btn-primary">Get started</button>
         </div>
         <img src={oldbook} className="rounded-lg lg:w-1/2 shadow-2xl" alt="" />
       </div>
