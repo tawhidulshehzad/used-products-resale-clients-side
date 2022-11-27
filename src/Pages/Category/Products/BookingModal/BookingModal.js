@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../../contexts/AuthProvider/AuthProvider";
 
 const BookingModal = ({ book, setBook }) => {
   const { name, resale_price } = book;
+  const { user } = useContext(AuthContext);
 
   const handleBooking = (event) => {
     event.preventDefault();
@@ -10,19 +12,36 @@ const BookingModal = ({ book, setBook }) => {
     const UserName = form.name.value;
     const email = form.email.value;
     const phone = form.phone.value;
+    const price = form.price.value;
     const location = form.location.value;
-    
+
     const booking = {
       bookName: name,
-      UserName: name,
+      UserName: UserName,
       email,
       phone,
+      location,
+      price,
     };
 
-    console.log(name, email, phone, location);
-    toast("Booking done");
-    setBook(null);
-    
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          setBook(null);
+          toast.success("Booking confirmed");
+          
+        } else {
+          toast.error(data.message);
+        }
+      });
   };
 
   return (
@@ -41,12 +60,14 @@ const BookingModal = ({ book, setBook }) => {
             <input
               disabled
               name="name"
+              defaultValue={user?.displayName}
               type="text"
               placeholder="User Name"
               className="input-bordered input w-full"
             />
             <input
               name="email"
+              defaultValue={user?.email}
               disabled
               type="text"
               placeholder="Email"
@@ -56,6 +77,7 @@ const BookingModal = ({ book, setBook }) => {
               <span className="label-text">Book Price</span>
             </label>
             <input
+              name="price"
               disabled
               type="text"
               value={resale_price}

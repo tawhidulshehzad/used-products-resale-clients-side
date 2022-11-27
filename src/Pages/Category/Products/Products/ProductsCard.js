@@ -30,7 +30,7 @@ const ProductsCard = ({ product, setBook }) => {
         <p>{years_of_use} Year used</p>
         <p> Seller Name: {seller_name} </p>
         <div className="card-actions justify-end">
-          <div className="badge badge-outline">{location}</div>
+          <div className="badge badge-outline uppercase">{location}</div>
         </div>
 
         <div className="card-actions">

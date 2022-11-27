@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard/CategoryCard";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const Category = () => {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
 
-  React.useEffect(() => {
-    axios.get("http://localhost:5000/books-categories").then((response) => {
-      setCategories(response.data);
-    });
-  }, []);
+  const { data: categories = [] } = useQuery({
+    queryKey: ["books-categories"],
+    queryFn: async () => {
+      const res = await axios.get("http://localhost:5000/books-categories");
+      const data = res.data;
+      console.log(data);
+      return data;
+    },
+  });
+
+  // React.useEffect(() => {
+  //   axios.get("http://localhost:5000/books-categories").then((response) => {
+  //     setCategories(response.data);
+  //   });
+  // }, []);
 
   // useEffect(() => {
   //   fetch("http://localhost:5000/books-categories")
