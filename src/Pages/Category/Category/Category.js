@@ -11,7 +11,7 @@ const Category = () => {
     queryFn: async () => {
       const res = await axios.get("http://localhost:5000/books-categories");
       const data = res.data;
-      console.log(data);
+      
       return data;
     },
   });
@@ -36,7 +36,7 @@ const Category = () => {
 
       <div className="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-6">
         {categories.map((category) => (
-          <CategoryCard id={category.id} category={category}></CategoryCard>
+          <CategoryCard key={category.id} category={category}></CategoryCard>
         ))}
       </div>
     </div>

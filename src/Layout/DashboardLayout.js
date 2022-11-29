@@ -1,11 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider/AuthProvider";
+import useAdmin from "../hooks/useAdmin";
+
+import useSeller from "../hooks/useSeller";
 
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
+  const [isSeller] = useSeller(user?.email);
+
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:5000/users");
+      const data = await res.json();
+      return data;
+    },
+  });
 
   return (
     <div>
@@ -22,15 +37,24 @@ const DashboardLayout = () => {
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-            <li>
-              <Link to="/dashboard"> My orders</Link>
-            </li>
-            <li>
-              <Link to="/dashboard/addproduct"> Add A product</Link>
-            </li>
-            <li>
-              <Link to="/dashboard/allusers">All users</Link>
-            </li>
+            {isSeller && (
+              <li>
+                <Link to="/dashboard/addproduct">Add A Product</Link>
+              </li>
+            )}
+            {isAdmin && (
+              <li>
+                <Link to="/dashboard/allusers">All Buyers</Link>
+                <Link to="/dashboard/allseller">All seller</Link>
+              </li>
+            )}
+            {!isSeller && !isAdmin ? (
+              <li>
+                <Link to="/dashboard">My Orders</Link>
+              </li>
+            ) : (
+              <div></div>
+            )}
           </ul>
         </div>
       </div>

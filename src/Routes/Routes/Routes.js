@@ -1,15 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
+import AllNewProducts from "../../Pages/AllNewProducts/AllNewProducts";
 import Blogs from "../../Pages/Blogs/Blogs";
 import Category from "../../Pages/Category/Category/Category";
 import Products from "../../Pages/Category/Products/Products/Products";
+import AddProducts from "../../Pages/Dashboard/AddProducts/AddProducts";
+import AllSeller from "../../Pages/Dashboard/All Seller/AllSeller";
+
+import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import ErrorPage from "../../Pages/Shared/ErrorPage/ErrorPage";
 import SignUp from "../../Pages/SignUp/SignUp";
+import SignUpSeller from "../../Pages/SignUp/SignUpSeller/SignUpSeller";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -30,6 +38,10 @@ export const router = createBrowserRouter([
         element: <SignUp></SignUp>,
       },
       {
+        path: "/signupseller",
+        element: <SignUpSeller></SignUpSeller>,
+      },
+      {
         path: "/blogs",
         element: <Blogs></Blogs>,
       },
@@ -45,6 +57,17 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/products/${params.id}`),
       },
+      {
+        path: "/allnewproducts",
+        element: (
+          <PrivateRoute>
+            {" "}
+            <AllNewProducts></AllNewProducts>
+          </PrivateRoute>
+        ),
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:5000/products/${params.id}`),
+      },
     ],
   },
   {
@@ -59,6 +82,30 @@ export const router = createBrowserRouter([
         path: "/dashboard",
         element: <MyOrders></MyOrders>,
       },
+      {
+        path: "/dashboard/allusers",
+        element: (
+          <AdminRoute>
+            <AllBuyers></AllBuyers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/allseller",
+        element: (
+          <AdminRoute>
+            <AllSeller></AllSeller>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/addproduct",
+        element: <AddProducts></AddProducts>,
+      },
     ],
+  },
+  {
+    path: "/*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);

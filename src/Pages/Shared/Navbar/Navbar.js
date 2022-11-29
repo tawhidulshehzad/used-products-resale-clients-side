@@ -47,36 +47,58 @@ const Navbar = () => {
         </li>
       )}
 
-      <li tabIndex={0}>
-        <div className="justify-between ">
-          Account Type
-          <svg
-            className="fill-current "
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
+      {user?.uid ? (
+        <>
+          <div></div>
+        </>
+      ) : (
+        <li tabIndex={0}>
+          <div className="justify-between ">
+            Account Type
+            <svg
+              className="fill-current "
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+            </svg>
+          </div>
+          <ul className="p-2 z-10  bg-white">
+            <li>
+              <Link to="/signupseller">Seller</Link>
+            </li>
+            <li>
+              <Link to="/signup" >Buyer</Link>
+            </li>
+          </ul>
+        </li>
+      )}
+
+      {user?.uid ? (
+        <>
+          <div></div>
+        </>
+      ) : (
+        <li>
+          <button
+            onClick={handleGoogleSignIn}
+            className="btn btn-outline rounded-lg"
           >
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-          </svg>
-        </div>
-        <ul className="p-2 z-10  bg-white">
-          <li>
-            <Link>Seller</Link>
-          </li>
-          <li>
-            <Link>Buyer</Link>
-          </li>
-        </ul>
-      </li>
-      <li>
+            Login With Google
+          </button>
+        </li>
+      )}
+
+      {/* <li>
         <button
           onClick={handleGoogleSignIn}
           className="btn btn-outline rounded-lg"
         >
           Login With Google
         </button>
-      </li>
+      </li> */}
     </>
   );
   return (

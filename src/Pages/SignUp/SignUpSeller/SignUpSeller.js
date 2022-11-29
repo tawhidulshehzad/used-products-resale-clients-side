@@ -2,10 +2,11 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import useToken from "../../hooks/useToken";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import useToken from "../../../hooks/useToken";
 
 const SignUp = () => {
+  const acType = "seller";
   const {
     register,
     handleSubmit,
@@ -33,7 +34,7 @@ const SignUp = () => {
         };
         updateUser(userInfo)
           .then(() => {
-            saveUser(data.name, data.email);
+            saveUser(data.name, data.email, data.actype);
           })
           .catch((err) => console.log(err));
       })
@@ -43,8 +44,8 @@ const SignUp = () => {
       });
   };
 
-  const saveUser = (name, email) => {
-    const user = { name, email };
+  const saveUser = (name, email, actype ) => {
+    const user = { name, email, actype };
     fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
@@ -61,7 +62,7 @@ const SignUp = () => {
   return (
     <div className="h-[800px] flex justify-center items-center">
       <div className="w-96 p-7">
-        <h2 className="text-xl text-center">Sign Up</h2>
+        <h2 className="text-xl text-center">Sign Up As a seller</h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <div className="form-control w-full max-w-xs">
             <label className="label">
@@ -72,6 +73,24 @@ const SignUp = () => {
               type="text"
               {...register("name", {
                 required: "Name is Required",
+              })}
+              className="input input-bordered w-full max-w-xs"
+            />
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
+            )}
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              {" "}
+              <span className="label-text">Account Type</span>
+            </label>
+            <input
+              defaultValue={acType}
+              readOnly
+              
+              {...register("actype", {
+                required: "Type is Required",
               })}
               className="input input-bordered w-full max-w-xs"
             />
