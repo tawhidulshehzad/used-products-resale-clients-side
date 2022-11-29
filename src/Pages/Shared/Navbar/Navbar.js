@@ -1,11 +1,16 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import useToken from "../../../hooks/useToken";
 
 const Navbar = () => {
   const { providerLogin } = useContext(AuthContext);
   const { user, logOut } = useContext(AuthContext);
+  const [googleUserEmail, setGoogleUserEmail] = useState("");
+  const [token] = useToken(googleUserEmail);
+  const navigate = useNavigate();
+
 
   const handleLogOut = () => {
     logOut()
@@ -19,9 +24,29 @@ const Navbar = () => {
     providerLogin(googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        const email = user.email;
+        const name = user.displayName;
+        console.log(name, email);
+        saveUser(name, email);
       })
       .catch((error) => console.error(error));
+  };
+
+  const saveUser = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate("/");
+        setGoogleUserEmail(email);
+        
+      });
   };
 
   const menuItems = (
@@ -70,7 +95,7 @@ const Navbar = () => {
               <Link to="/signupseller">Seller</Link>
             </li>
             <li>
-              <Link to="/signup" >Buyer</Link>
+              <Link to="/signup">Buyer</Link>
             </li>
           </ul>
         </li>

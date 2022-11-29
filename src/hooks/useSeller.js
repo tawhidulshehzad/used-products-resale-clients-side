@@ -10,7 +10,7 @@ const useAdmin = (email) => {
         .then((data) => {
           
           setISeller(data.isSeller);
-          console.log(data);
+          
           setIsSellerLoading(false);
         });
     }

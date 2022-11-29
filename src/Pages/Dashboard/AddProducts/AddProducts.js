@@ -43,7 +43,6 @@ const AddProducts = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        
         if (data.acknowledged) {
           toast.success("Product has taken");
           form.reset();
@@ -53,15 +52,19 @@ const AddProducts = () => {
       .catch((error) => console.error(error));
   };
 
+ 
+
   return (
     <div className=" p-7">
-      <h2 className="text-2xl font-semibold my-3">Add a new product</h2>
-      <form onSubmit={handleAddProducts} className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-6">
-      
+      <h2 className="text-2xl font-semibold my-3">Add A New Product</h2>
+      <form
+        onSubmit={handleAddProducts}
+        className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-6"
+      >
         <input
           name="ctid"
           type="text"
-          placeholder="category ID should be (01, 02, 03)"
+          placeholder="Category ID should be (01, 02, 03)"
           className="input-bordered input w-full"
         />
         <input
@@ -102,7 +105,7 @@ const AddProducts = () => {
         /> */}
         <input
           name="seller_name"
-          placeholder="seller name"
+          placeholder="Seller name"
           type="text"
           className="input-bordered input w-full"
         />
@@ -128,6 +131,9 @@ const AddProducts = () => {
           value="Submit"
         />
       </form>
+      <h2>* Category Id (01) for History</h2>
+      <h2>* Category Id (02) for Math</h2>
+      <h2>* Category Id (03) for Political</h2>
     </div>
   );
 };

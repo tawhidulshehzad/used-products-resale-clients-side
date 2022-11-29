@@ -54,7 +54,7 @@ const MyOrders = () => {
               <tr key={booking._id}>
                 <th>{i + 1}</th>
                 <td>
-                  <div className="mask mask-squircle w-12 h-12">
+                  <div className=" w-16 h-12">
                     <img src={booking.img} alt="" />
                   </div>
                 </td>

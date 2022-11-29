@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const AllNewProducts = () => {
@@ -9,20 +10,30 @@ const AllNewProducts = () => {
       .then((response) => response.json())
       .then((data) => {
         setNewProducts(data);
-        
       });
   }, [user?.email]);
 
-  // const {
-  //   product.name,
-  //   product.img,
-  //   product.location,
-  //   product.seller_name,
-  //   product.years_of_use,
-  //   product.time,
-  //   product.resale_price,
-  //   product.original_price,
-  // } = newProducts;
+  // delete function
+  const handleDelete = (id) => {
+    console.log("products", id);
+    const proceed = window.confirm("Are you sure you want to delete");
+    if (proceed) {
+      fetch(`http://localhost:5000/newproducts/${id}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            alert("Deleted successfully");
+            const remaining = newProducts.filter((rvw) => rvw._id !== id);
+            setNewProducts(remaining);
+            toast("Successfully deleted");
+          }
+        });
+    }
+  };
+
   return (
     <div className="py-6">
       <h2 className="text-3xl font-semibold">All My Products</h2>
@@ -56,6 +67,12 @@ const AllNewProducts = () => {
                   </div>
                 </div>
               </div>
+              <button
+                onClick={() => handleDelete(product._id)}
+                className="btn btn-primary"
+              >
+                Delete Product
+              </button>
             </div>
           ))}
         </div>

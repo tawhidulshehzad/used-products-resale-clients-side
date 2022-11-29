@@ -8,13 +8,12 @@ const AllBuyers = () => {
     queryFn: async () => {
       const res = await fetch("http://localhost:5000/users");
       const data = await res.json();
-      
+
       return data;
     },
   });
 
   const handleMakeAdmin = (id) => {
-    
     fetch(`http://localhost:5000/users/admin/${id}`, {
       method: "PUT",
       headers: {
@@ -28,6 +27,26 @@ const AllBuyers = () => {
           refetch();
         }
       });
+  };
+
+  const handleDelete = (id) => {
+    console.log("products", id);
+    const proceed = window.confirm("Are you sure you want to delete");
+    if (proceed) {
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            alert("Deleted successfully");
+            const remaining = users.filter((rvw) => rvw._id !== id);
+            data(remaining);
+            toast("Successfully deleted");
+          }
+        });
+    }
   };
 
   return (
@@ -61,7 +80,12 @@ const AllBuyers = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-xs btn-danger">Delete</button>
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="btn btn-xs btn-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
