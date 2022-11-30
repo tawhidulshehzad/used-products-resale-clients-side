@@ -6,7 +6,7 @@ const AllNewProducts = () => {
   const { user } = useContext(AuthContext);
   const [newProducts, setNewProducts] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/newproducts?email=${user?.email}`, {})
+    fetch(`https://bookworm-server.vercel.app/newproducts?email=${user?.email}`, {})
       .then((response) => response.json())
       .then((data) => {
         setNewProducts(data);
@@ -18,7 +18,7 @@ const AllNewProducts = () => {
     console.log("products", id);
     const proceed = window.confirm("Are you sure you want to delete");
     if (proceed) {
-      fetch(`http://localhost:5000/newproducts/${id}`, {
+      fetch(`https://bookworm-server.vercel.app/newproducts/${id}`, {
         method: "DELETE",
       })
         .then((response) => response.json())

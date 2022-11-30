@@ -46,7 +46,7 @@ const SignUp = () => {
 
   const saveUser = (name, email, actype ) => {
     const user = { name, email, actype };
-    fetch("http://localhost:5000/users", {
+    fetch("https://bookworm-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

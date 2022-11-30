@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 const Report = () => {
   const { user } = useContext(AuthContext);
 
-  const url = "http://localhost:5000/report";
+  const url = "https://bookworm-server.vercel.app/report";
 
   const { data: reports = [] } = useQuery({
     queryKey: ["reports", user?.email],
@@ -25,7 +25,7 @@ const Report = () => {
     console.log("products", id);
     const proceed = window.confirm("Are you sure you want to delete");
     if (proceed) {
-      fetch(`http://localhost:5000/report/${id}`, {
+      fetch(`https://bookworm-server.vercel.app/report/${id}`, {
         method: "DELETE",
       })
         .then((response) => response.json())

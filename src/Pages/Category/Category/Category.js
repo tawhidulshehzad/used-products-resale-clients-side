@@ -9,7 +9,7 @@ const Category = () => {
   const { data: categories = [] } = useQuery({
     queryKey: ["books-categories"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/books-categories");
+      const res = await axios.get("https://bookworm-server.vercel.app/books-categories");
       const data = res.data;
       
       return data;
@@ -17,13 +17,13 @@ const Category = () => {
   });
 
   // React.useEffect(() => {
-  //   axios.get("http://localhost:5000/books-categories").then((response) => {
+  //   axios.get("https://bookworm-server.vercel.app/books-categories").then((response) => {
   //     setCategories(response.data);
   //   });
   // }, []);
 
   // useEffect(() => {
-  //   fetch("http://localhost:5000/books-categories")
+  //   fetch("https://bookworm-server.vercel.app/books-categories")
   //     .then((res) => res.json())
   //     .then((data) => setCategories(data));
   // }, []);

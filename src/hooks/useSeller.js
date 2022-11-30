@@ -5,7 +5,7 @@ const useAdmin = (email) => {
   const [isSellerLoading, setIsSellerLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/users/sellers/${email}`)
+      fetch(`https://bookworm-server.vercel.app/users/sellers/${email}`)
         .then((res) => res.json())
         .then((data) => {
           

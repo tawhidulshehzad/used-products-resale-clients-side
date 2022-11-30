@@ -34,7 +34,7 @@ const AddProducts = () => {
       email,
     };
 
-    fetch("http://localhost:5000/newproducts", {
+    fetch("https://bookworm-server.vercel.app/newproducts", {
       method: "POST",
       headers: {
         "content-type": "application/json",

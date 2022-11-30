@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/products/${params.id}`),
+          fetch(`https://bookworm-server.vercel.app/products/${params.id}`),
       },
       {
         path: "/allnewproducts",
@@ -68,7 +68,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/products/${params.id}`),
+        //   fetch(`https://bookworm-server.vercel.app/products/${params.id}`),
       },
     ],
   },
@@ -118,7 +118,7 @@ export const router = createBrowserRouter([
     path: "/dashboard/payment/:id",
     element: <Payment></Payment>,
     loader: ({ params }) =>
-      fetch(`http://localhost:5000/bookings/${params.id}`),
+      fetch(`https://bookworm-server.vercel.app/bookings/${params.id}`),
   },
   {
     path: "/*",

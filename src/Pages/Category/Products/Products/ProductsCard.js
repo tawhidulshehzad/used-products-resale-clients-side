@@ -6,7 +6,7 @@ const ProductsCard = ({ product, setBook }) => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/users");
+      const res = await fetch("https://bookworm-server.vercel.app/users");
       const data = await res.json();
       return data;
     },
@@ -37,7 +37,7 @@ const ProductsCard = ({ product, setBook }) => {
       email,
     };
     console.log("try");
-    fetch("http://localhost:5000/report", {
+    fetch("https://bookworm-server.vercel.app/report", {
       method: "POST",
       headers: {
         "content-type": "application/json",
