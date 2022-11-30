@@ -45,7 +45,8 @@ const DashboardLayout = () => {
             {isAdmin && (
               <li>
                 <Link to="/dashboard/allusers">All Buyers</Link>
-                <Link to="/dashboard/allseller">All seller</Link>
+                <Link to="/dashboard/allseller">All Seller</Link>
+                <Link to="/dashboard/report">Reported Items</Link>
               </li>
             )}
             {!isSeller && !isAdmin ? (

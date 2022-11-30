@@ -69,7 +69,7 @@ const AllNewProducts = () => {
               </div>
               <button
                 onClick={() => handleDelete(product._id)}
-                className="btn btn-primary"
+                className="btn btn-primary btn-sm"
               >
                 Delete Product
               </button>

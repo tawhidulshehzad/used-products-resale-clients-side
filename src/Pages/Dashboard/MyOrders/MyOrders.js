@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import useAdmin from "../../../hooks/useAdmin";
 import useSeller from "../../../hooks/useSeller";
@@ -9,7 +9,6 @@ const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
   const [isSeller] = useSeller(user?.email);
-
   const navigate = useNavigate();
 
   if (isAdmin) {
@@ -60,7 +59,16 @@ const MyOrders = () => {
                 </td>
                 <td>{booking.bookName}</td>
                 <td>{booking.price}</td>
-                <td className="btn btn-secondary ">Pay</td>
+                <td>
+                  {booking.price && !booking.paid && (
+                    <Link to={`/dashboard/payment/${booking._id}`}>
+                      <button className="btn btn-primary btn-sm">Pay</button>
+                    </Link>
+                  )}
+                  {booking.price && booking.paid && (
+                    <span className="text-green-500">Paid</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

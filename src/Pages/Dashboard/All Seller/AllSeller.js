@@ -48,6 +48,23 @@ const AllSeller = () => {
     }
   };
 
+  // make verfied
+  const handleMakeVerified = (id) => {
+    fetch(`http://localhost:5000/users/seller/${id}`, {
+      method: "PUT",
+      headers: {
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Verfied successful.");
+          refetch();
+        }
+      });
+  };
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -62,8 +79,31 @@ const AllSeller = () => {
               <tr key={user._id}>
                 {user?.actype === "seller" && (
                   <div>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
+                    <td className="capitalize">
+                      <div className="flex">
+                        <h4>{user.name}</h4>
+                        <div>
+                          {user.verify === "verified" ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              className="w-6 h-6 mx-2 text-blue-700"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
+                            </svg>
+                          ) : (
+                            <div></div>
+                          )}
+                        </div>
+                      </div>
+                    </td>
                     <td>{user.email}</td>
 
                     <td>
@@ -75,9 +115,18 @@ const AllSeller = () => {
                       </button>
                     </td>
                     <td>
-                      <button className="btn btn-xs btn-danger">
-                        Unverified
-                      </button>
+                      {user.verify === "verified" ? (
+                        <button className="btn btn-xs btn-danger">
+                          Verfied
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleMakeVerified(user._id)}
+                          className="btn btn-xs btn-danger"
+                        >
+                          Unverified
+                        </button>
+                      )}
                     </td>
                   </div>
                 )}

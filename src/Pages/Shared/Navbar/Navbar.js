@@ -3,14 +3,16 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import useToken from "../../../hooks/useToken";
+import useSeller from "../../../hooks/useSeller";
 
 const Navbar = () => {
   const { providerLogin } = useContext(AuthContext);
+
   const { user, logOut } = useContext(AuthContext);
+  const [isSeller] = useSeller(user?.email);
   const [googleUserEmail, setGoogleUserEmail] = useState("");
   const [token] = useToken(googleUserEmail);
   const navigate = useNavigate();
-
 
   const handleLogOut = () => {
     logOut()
@@ -45,7 +47,6 @@ const Navbar = () => {
       .then((data) => {
         navigate("/");
         setGoogleUserEmail(email);
-        
       });
   };
 
@@ -57,6 +58,11 @@ const Navbar = () => {
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
+      {isSeller && (
+        <li>
+          <Link to="/allnewproducts">My Products</Link>
+        </li>
+      )}
       {user?.uid ? (
         <>
           <li>
